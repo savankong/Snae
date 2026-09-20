@@ -21,6 +21,8 @@ export default function AdminOverview() {
                      sub="Awaiting profile review" />
           <QueueCard href="/admin/disputes" label="Payment disputes" count={1} urgent
                      sub="Evidence packet ready to submit" />
+          <QueueCard href="/admin/media" label="Media review" count={3}
+                     sub="Nothing is discoverable until approved" />
         </div>
       </section>
 

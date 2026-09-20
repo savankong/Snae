@@ -15,6 +15,7 @@ const NAV: Array<[label: string, href: string]> = [
   ['Overview', '/admin'],
   ['Claims', '/admin/claims'],
   ['Verification', '/admin/verification'],
+  ['Media', '/admin/media'],
   ['Disputes', '/admin/disputes'],
   ['Settings', '/admin/settings'],
 ];

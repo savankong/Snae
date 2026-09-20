@@ -2,6 +2,9 @@ import Link from 'next/link';
 import { formatUsd, formatUsdCompact } from '@snae/money';
 import type { CreatorFixture } from '@/lib/fixtures';
 import { DAY_LABELS } from '@/lib/fixtures';
+import { timeAgo } from '@snae/media';
+import { coverFor } from '@/lib/media-fixtures';
+import { CoverArt, hueForSeed } from './cover-art';
 import { AvatarMark, PresenceSeal, StatusPill } from './presence';
 import { cx } from './primitives';
 
@@ -19,9 +22,10 @@ function sealDate(ageSeconds: number | null, now: number): Date | null {
  * button would fail most of the time; the offline card offers an async message
  * instead, which is the load-bearing mechanic when nobody is on.
  */
-export function CreatorCard({ creator, now, priority }: { creator: CreatorFixture; now: number; priority?: boolean }) {
+export function CreatorCard({ creator, now }: { creator: CreatorFixture; now: number }) {
   const live = creator.status === 'live';
   const ring = live ? 'live' : creator.status === 'booking_only' ? 'scheduled' : 'offline';
+  const cover = coverFor(creator.id);
 
   return (
     <article
@@ -32,19 +36,33 @@ export function CreatorCard({ creator, now, priority }: { creator: CreatorFixtur
              : 'border-hairline hover:border-verified/35 hover:shadow-[0_18px_50px_-28px_rgba(124,92,255,0.4)]',
       )}
     >
-      {/* Soft glow behind a live card, revealed on hover. */}
-      {live && (
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -top-24 right--10 h-48 w-48 rounded-full opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-40"
-          style={{ background: 'var(--color-live)' }}
-        />
+      {/* Her newest post is the card. An avatar and a price gave nobody a
+          reason to tap; a picture and a caption do. */}
+      {cover && (
+        <Link href={`/${creator.slug}`} className="relative block overflow-hidden" aria-label={`${creator.displayName}'s profile`}>
+          <CoverArt
+            seed={cover.seed}
+            hue={hueForSeed(creator.slug)}
+            rounded={false}
+            className="h-44 w-full transition-transform duration-500 group-hover:scale-[1.03]"
+            alt={cover.caption ?? `Recent post by ${creator.displayName}`}
+          />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-surface via-surface/60 to-transparent" />
+          {cover.caption && (
+            <p className="absolute inset-x-0 bottom-0 line-clamp-1 px-4 pb-2.5 text-[12.5px] text-ink-2">
+              {cover.caption}
+            </p>
+          )}
+          <span className="absolute right-3 top-3 rounded-full bg-ground/70 px-2 py-1 text-[10.5px] text-ink-2 backdrop-blur">
+            {timeAgo(cover.createdAt, new Date(now))}
+          </span>
+        </Link>
       )}
 
       <div className="relative p-5">
         <div className="flex items-start gap-3.5">
           <Link href={`/${creator.slug}`} className="press shrink-0" aria-label={`${creator.displayName}'s profile`}>
-            <AvatarMark name={creator.displayName} hue={creator.hue} size={priority ? 64 : 56} ring={ring} />
+            <AvatarMark name={creator.displayName} hue={creator.hue} size={cover ? 44 : 56} ring={ring} />
           </Link>
 
           <div className="min-w-0 flex-1">
@@ -137,32 +155,5 @@ export function CreatorCard({ creator, now, priority }: { creator: CreatorFixtur
         )}
       </div>
     </article>
-  );
-}
-
-/** The ring tray: a reason to tap whether or not anyone is live. */
-export function RingTray({ creators, now }: { creators: CreatorFixture[]; now: number }) {
-  return (
-    <div className="-mx-4 overflow-x-auto px-4 pb-1 sm:mx-0 sm:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-      <ul className="flex gap-4">
-        {creators.map((c) => {
-          const ring = c.status === 'live' ? 'live' : c.status === 'booking_only' ? 'scheduled' : 'offline';
-          return (
-            <li key={c.id} className="shrink-0">
-              <Link href={`/${c.slug}`} className="press flex w-[74px] flex-col items-center gap-1.5 text-center">
-                <AvatarMark name={c.displayName} hue={c.hue} size={58} ring={ring} />
-                <span className="w-full truncate text-[12px] font-medium text-ink-2">{c.displayName}</span>
-                <span className={cx(
-                  'text-[10px] leading-tight',
-                  c.status === 'live' ? 'text-live-soft' : c.status === 'booking_only' ? 'text-verified-soft' : 'text-ink-3',
-                )}>
-                  {c.status === 'live' ? 'On now' : c.status === 'in_session' ? 'In session' : c.nextSlot ?? 'Offline'}
-                </span>
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
   );
 }

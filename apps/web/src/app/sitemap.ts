@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const base = 'https://snae.example';
   return [
     { url: base, changeFrequency: 'hourly', priority: 1 },
+    { url: `${base}/discover`, changeFrequency: 'hourly', priority: 0.9 },
     { url: `${base}/guarantee`, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${base}/creator/onboarding`, changeFrequency: 'monthly', priority: 0.6 },
     // Approved, published profiles only — drafts and hidden profiles never appear.

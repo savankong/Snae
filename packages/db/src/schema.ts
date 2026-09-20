@@ -34,6 +34,10 @@ export const entryType = pgEnum('entry_type', [
 export const buyerTier = pgEnum('buyer_tier', ['new', 'good', 'trusted', 'top']);
 export const claimStatus = pgEnum('claim_status', ['open', 'auto_refunded', 'auto_rejected', 'under_review', 'upheld', 'rejected']);
 export const caseStatus = pgEnum('case_status', ['open', 'in_review', 'resolved', 'dismissed']);
+export const mediaKind = pgEnum('media_kind', ['photo', 'clip', 'moment']);
+export const mediaVisibility = pgEnum('media_visibility', ['public', 'members', 'favorites', 'past_buyers']);
+export const moderationStatus = pgEnum('moderation_status', ['pending', 'approved', 'rejected']);
+export const captureSource = pgEnum('capture_source', ['in_app', 'upload']);
 
 const id = () => uuid('id').primaryKey().defaultRandom();
 const createdAt = () => timestamp('created_at', { withTimezone: true }).notNull().defaultNow();
@@ -130,6 +134,50 @@ export const offers = pgTable('offers', {
   durationSeconds: integer('duration_seconds'),
   active: boolean('active').notNull().default(true),
 }, (t) => [index('offers_creator_idx').on(t.creatorId)]);
+
+/**
+ * Creator content (§A.1 creator_media, extended for discovery).
+ *
+ * Nothing here is served directly: `storageKey` addresses private object
+ * storage and delivery is via short-lived signed URLs (§A.4). Rows cannot be
+ * discoverable until moderation approves them and metadata has been stripped
+ * (§FR-027) — both are checked in @snae/media's isDiscoverable.
+ */
+export const creatorMedia = pgTable('creator_media', {
+  id: id(),
+  creatorId: uuid('creator_id').notNull().references(() => creatorProfiles.userId),
+  kind: mediaKind('kind').notNull(),
+  storageKey: text('storage_key'),
+  /** Deterministic seed for generated placeholder art while no file exists. */
+  seed: text('seed').notNull(),
+  caption: text('caption'),
+  visibility: mediaVisibility('visibility').notNull().default('public'),
+  moderationStatus: moderationStatus('moderation_status').notNull().default('pending'),
+  captureSource: captureSource('capture_source').notNull().default('upload'),
+  /** §FR-027. Nothing is discoverable until this is true. */
+  metadataStripped: boolean('metadata_stripped').notNull().default(false),
+  width: integer('width').notNull().default(0),
+  height: integer('height').notNull().default(0),
+  durationSeconds: integer('duration_seconds'),
+  /** Moments expire; photos and clips do not. */
+  expiresAt: timestamp('expires_at', { withTimezone: true }),
+  createdAt: createdAt(),
+}, (t) => [
+  index('creator_media_creator_idx').on(t.creatorId, t.createdAt),
+  index('creator_media_moderation_idx').on(t.moderationStatus, t.createdAt),
+  index('creator_media_expiry_idx').on(t.expiresAt),
+]);
+
+/**
+ * Per-buyer watermarking for leak attribution (FR-031, P1). Recorded at the
+ * moment a buyer is served media, so a leaked file can be traced back.
+ */
+export const mediaWatermarks = pgTable('media_watermarks', {
+  id: id(),
+  mediaId: uuid('media_id').notNull().references(() => creatorMedia.id),
+  buyerId: uuid('buyer_id').notNull().references(() => users.id),
+  servedAt: createdAt(),
+}, (t) => [uniqueIndex('media_watermark_uq').on(t.mediaId, t.buyerId)]);
 
 export const creatorFriends = pgTable('creator_friends', {
   creatorId: uuid('creator_id').notNull().references(() => creatorProfiles.userId),

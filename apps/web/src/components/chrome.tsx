@@ -16,6 +16,7 @@ export function SiteHeader() {
 
         <nav className="ml-4 hidden items-center gap-1 md:flex" aria-label="Main">
           <NavLink href="/">Browse</NavLink>
+          <NavLink href="/discover">Discover</NavLink>
           <NavLink href="/favorites">Favourites</NavLink>
           <NavLink href="/guarantee">The guarantee</NavLink>
         </nav>
@@ -62,7 +63,8 @@ export function SiteFooter() {
 
         <div className="grid gap-8 text-[13px] sm:grid-cols-2 lg:grid-cols-4">
           <FooterCol title="Marketplace" links={[
-            ['Browse creators', '/'], ['The guarantee', '/guarantee'], ['Your wallet', '/wallet'], ['Your standing', '/account/standing'],
+            ['Browse creators', '/'], ['Discover', '/discover'], ['The guarantee', '/guarantee'],
+            ['Your wallet', '/wallet'], ['Your standing', '/account/standing'],
           ]} />
           <FooterCol title="Creators" links={[
             ['Apply to create', '/creator/onboarding'], ['Creator studio', '/creator/studio'], ['Safety centre', '/creator/studio/safety'],

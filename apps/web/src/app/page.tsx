@@ -1,7 +1,9 @@
 import Link from 'next/link';
 import { isPrimeTime, nextPrimeTimeOpening, rankCreators } from '@snae/marketplace';
 import { CREATORS, DEMO_BUYER } from '@/lib/fixtures';
-import { CreatorCard, RingTray } from '@/components/creator-card';
+import { activeMoments } from '@/lib/media-fixtures';
+import { CreatorCard } from '@/components/creator-card';
+import { MomentsRail } from '@/components/moments-rail';
 import { ShieldTick } from '@/components/presence';
 import { LinkButton, Note } from '@/components/primitives';
 
@@ -42,6 +44,7 @@ export default function HomePage() {
     .filter(Boolean);
 
   const liveCount = CREATORS.filter((c) => c.status === 'live').length;
+  const moments = activeMoments(nowDate);
 
   return (
     <div className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -69,8 +72,8 @@ export default function HomePage() {
           </p>
 
           <div className="mt-7 flex flex-wrap items-center gap-3">
-            <LinkButton href="#browse" variant="live" size="lg">
-              {liveCount > 0 ? `Browse ${liveCount} on now` : 'Browse creators'}
+            <LinkButton href="/discover" variant="live" size="lg">
+              {liveCount > 0 ? `See what's new · ${liveCount} on now` : "See what's new"}
             </LinkButton>
             <LinkButton href="/guarantee" variant="outline" size="lg">How the guarantee works</LinkButton>
           </div>
@@ -103,23 +106,26 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Ring tray ──────────────────────────────────────────────────── */}
-      <section className="mb-10">
-        <h2 className="mb-4 font-display text-[19px] font-semibold tracking-tight">Tonight</h2>
-        <RingTray creators={ordered} now={now} />
-      </section>
+      {/* ── Moments ───────────────────────────────────────────────────── */}
+      {moments.length > 0 && (
+        <section className="mb-10">
+          <MomentsRail moments={moments} now={nowDate} />
+        </section>
+      )}
 
       {/* ── Cards ──────────────────────────────────────────────────────── */}
       <section id="browse" className="scroll-mt-20">
         <div className="mb-4 flex items-baseline justify-between gap-4">
           <h2 className="font-display text-[19px] font-semibold tracking-tight">Creators</h2>
-          <Note>Ranked by availability and presence record. Ranking cannot be bought.</Note>
+          <Link href="/discover" className="text-[13px] text-ink-3 underline-offset-4 hover:text-ink hover:underline">
+            See everything posted today
+          </Link>
         </div>
 
         <ul className="stagger grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {ordered.map((c, i) => (
+          {ordered.map((c) => (
             <li key={c.id}>
-              <CreatorCard creator={c} now={now} priority={i === 0} />
+              <CreatorCard creator={c} now={now} />
             </li>
           ))}
         </ul>

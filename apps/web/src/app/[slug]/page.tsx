@@ -4,6 +4,8 @@ import { formatUsd, formatUsdCompact } from '@snae/money';
 import { presenceRecord } from '@snae/presence';
 import { canShowFriendRecommendations } from '@snae/referrals';
 import { CREATORS, DAY_LABELS, DEMO_BUYER, creatorBySlug } from '@/lib/fixtures';
+import { mediaForCreator, viewerFor } from '@/lib/media-fixtures';
+import { ProfileGallery } from '@/components/profile-gallery';
 import { AvatarMark, PresenceSeal, StatusPill, ShieldTick } from '@/components/presence';
 import { Button, Card, LinkButton, Note, SectionHeading, cx } from '@/components/primitives';
 
@@ -144,6 +146,19 @@ export default async function CreatorProfile({ params }: { params: Promise<{ slu
           </div>
         </Card>
       )}
+
+      {/* ── Her content ────────────────────────────────────────────────── */}
+      <section className="mt-9">
+        <SectionHeading action={<Note>Newest first</Note>}>
+          From {creator.displayName}
+        </SectionHeading>
+        <ProfileGallery
+          media={mediaForCreator(creator.id)}
+          creator={{ slug: creator.slug, displayName: creator.displayName, hue: creator.hue }}
+          viewer={viewerFor(creator.id)}
+          now={new Date(now)}
+        />
+      </section>
 
       {/* ── Presence Record (FR-006) ───────────────────────────────────── */}
       <section className="mt-9">
