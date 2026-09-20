@@ -1,3 +1,4 @@
+import path from 'node:path';
 import type { NextConfig } from 'next';
 
 /**
@@ -24,6 +25,10 @@ const PRIVATE_PREFIXES = ['/account', '/wallet', '/favorites', '/session', '/cre
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  // Self-contained server bundle: lets the runtime image ship without
+  // node_modules, which keeps it small and host-agnostic.
+  output: 'standalone',
+  outputFileTracingRoot: path.join(import.meta.dirname, '../../'),
   poweredByHeader: false,
   typedRoutes: false,
   async headers() {
