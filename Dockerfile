@@ -5,21 +5,20 @@
 
 FROM node:22-alpine AS deps
 WORKDIR /app
-COPY package.json package-lock.json ./
-COPY apps/web/package.json ./apps/web/
-COPY packages/config/package.json ./packages/config/
-COPY packages/db/package.json ./packages/db/
-COPY packages/marketplace/package.json ./packages/marketplace/
-COPY packages/money/package.json ./packages/money/
-COPY packages/presence/package.json ./packages/presence/
-COPY packages/referrals/package.json ./packages/referrals/
-COPY packages/standing/package.json ./packages/standing/
+# The whole context, rather than a hand-listed set of workspace manifests.
+#
+# An explicit list drifts: packages/media was added and its COPY line was not,
+# so npm ci ran against an incomplete workspace set. It happened to survive,
+# because @snae/* resolves through tsconfig paths rather than node_modules —
+# but a package that declared a real external dependency would have failed in a
+# confusing way. Copying everything costs the install-layer cache on a source
+# change and cannot go stale.
+COPY . .
 RUN npm ci --no-audit --no-fund
 
-FROM node:22-alpine AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
-COPY . .
+# deps already holds the source and node_modules, so build straight from it
+# rather than re-copying the context.
+FROM deps AS builder
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
 
