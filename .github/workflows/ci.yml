@@ -1,9 +1,12 @@
 name: CI
 
+# A pull request and a push to the same branch would otherwise run every job
+# twice. Pushes are scoped to the default branch; everything else is covered by
+# the pull_request trigger.
 on:
   pull_request:
   push:
-    branches: ['**']
+    branches: [claude/busy-allen-71pdth]
 
 concurrency:
   group: ci-${{ github.ref }}
