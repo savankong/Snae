@@ -23,10 +23,16 @@ start a session, and what a creator is allowed to see — is real code with test
 ```bash
 npm install
 npm run dev          # http://localhost:3000
-npm test             # 77 unit tests
-npm run typecheck    # tsc --noEmit, strict
-npm run build        # production build
+npm run verify       # everything CI runs, in one command
 ```
+
+Individually: `npm test` (102 unit tests), `npm run typecheck`, `npm run build`,
+`npm run check:lockfile`.
+
+Run `npm run verify` before pushing. It includes the lockfile check, which
+catches the one failure mode that passes locally and then breaks CI: adding a
+package under `packages/` without re-running `npm install` leaves the lockfile
+stale, and `npm ci` rejects it.
 
 Node 22 or newer. No database or provider credentials are needed to run the app
 as it stands.

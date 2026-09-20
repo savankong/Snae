@@ -25,6 +25,11 @@ jobs:
           node-version: 22
           cache: npm
 
+      # Runs before install so a stale lockfile gives a clear message rather
+      # than npm ci's wall of usage text.
+      - name: Lockfile in sync with workspaces
+        run: node scripts/check-lockfile.mjs
+
       - run: npm ci --no-audit --no-fund
 
       # Money and presence rules are the ones worth failing a build over.
