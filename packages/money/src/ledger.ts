@@ -1,4 +1,4 @@
-import { assertNonNegative, splitByRate, type Minor } from './money';
+import { assertNonNegative, splitByRate, type Minor } from './money.ts';
 import { TAKE_RATES, REFERRAL, type BuyerSource } from '@snae/config';
 
 /**
@@ -69,6 +69,12 @@ export interface AllocateSessionInput {
   referringCreatorId?: string | null;
   /** Clearing date for creator earnings, set by the payout profile. */
   availableAt?: Date | null;
+  /**
+   * Rate overrides. §7.2 makes take and commission rates admin-configurable,
+   * so callers pass the values in force at the time of the session rather than
+   * this module reading a constant. Omitted, the launch defaults apply.
+   */
+  rates?: { creatorShare?: number; commission?: number };
 }
 
 /**
@@ -82,14 +88,15 @@ export interface AllocateSessionInput {
 export function allocateSession(input: AllocateSessionInput): Allocation {
   const gross = assertNonNegative(input.grossMinor, 'grossMinor');
   const table = input.source === 'creator' ? TAKE_RATES.creatorBrought : TAKE_RATES.marketplace;
-  const rate = input.isFoundingCreator ? table.founding : table.standard;
+  const rate = input.rates?.creatorShare ?? (input.isFoundingCreator ? table.founding : table.standard);
+  const commissionRate = input.rates?.commission ?? REFERRAL.commissionRate;
 
   const { share: creatorMinor, remainder: platformGross } = splitByRate(gross, rate);
 
   // Commission is owed only to a *different* creator than the one being paid.
   const owesCommission =
     !!input.referringCreatorId && input.referringCreatorId !== input.creatorId;
-  const referralMinor = owesCommission ? Math.round(gross * REFERRAL.commissionRate) : 0;
+  const referralMinor = owesCommission ? Math.round(gross * commissionRate) : 0;
 
   // The platform cannot pay out more commission than its own share.
   if (referralMinor > platformGross) {

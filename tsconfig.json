@@ -9,6 +9,7 @@
     "noImplicitOverride": true,
     "exactOptionalPropertyTypes": false,
     "noEmit": true,
+    "allowImportingTsExtensions": true,
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "bundler",

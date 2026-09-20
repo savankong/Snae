@@ -19,6 +19,9 @@ const csp = [
   "form-action 'self'",
 ].join('; ');
 
+/** Surfaces that must never be indexed: accounts, money, sessions, studio, admin. */
+const PRIVATE_PREFIXES = ['/account', '/wallet', '/favorites', '/session', '/creator/studio', '/admin'];
+
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
@@ -36,11 +39,13 @@ const nextConfig: NextConfig = {
           { key: 'Permissions-Policy', value: 'camera=(self), microphone=(self), geolocation=()' },
         ],
       },
-      {
-        // Never index private surfaces (spec A.6).
-        source: '/(account|session|creator/studio|admin)/:path*',
+      // Never index private surfaces (§A.6). Each page also sets `robots` in
+      // its metadata; this header is the belt to that braces, so that a page
+      // added without the metadata still cannot leak into an index.
+      ...PRIVATE_PREFIXES.map((prefix) => ({
+        source: `${prefix}/:path*`,
         headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
-      },
+      })),
     ];
   },
 };

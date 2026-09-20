@@ -89,15 +89,20 @@ export function computeStanding(i: StandingInputs, now = new Date()): Standing {
 
   const penalties = i.blocksReceived + i.reportsUpheld * 2 + i.rejectedClaims;
 
+  // Earn a tier from history alone, then apply penalties as a demotion. The two
+  // steps are kept separate on purpose: folding penalties into the climb gates
+  // would double-count them and drop a long-standing buyer with one block to
+  // the same tier as a stranger, which is not the signal a creator needs.
   let tier: Tier = 'new';
-  if (i.completedSessions >= 3 && penalties === 0) tier = 'good';
-  if (i.completedSessions >= 10 && i.accountAgeDays >= 30 && penalties === 0 && ratingRate >= 0.85) tier = 'trusted';
-  if (i.completedSessions >= 30 && i.accountAgeDays >= 90 && penalties === 0 && ratingRate >= 0.93 && i.repeatRelationships >= 3) tier = 'top';
+  if (i.completedSessions >= 3) tier = 'good';
+  if (i.completedSessions >= 10 && i.accountAgeDays >= 30 && ratingRate >= 0.85) tier = 'trusted';
+  if (i.completedSessions >= 30 && i.accountAgeDays >= 90 && ratingRate >= 0.93 && i.repeatRelationships >= 3) tier = 'top';
 
-  // Penalties pull a buyer down rather than capping him at his earned tier,
-  // so that recent bad behaviour is visible to creators immediately.
+  // Recent bad behaviour is visible to creators immediately: three or more
+  // penalties reset to New, one or two drop to Good regardless of how much
+  // history backs the account.
   if (penalties >= 3) tier = 'new';
-  else if (penalties > 0 && tier !== 'new') tier = 'good';
+  else if (penalties > 0) tier = TIER_ORDER[Math.min(TIER_ORDER.indexOf(tier), TIER_ORDER.indexOf('good'))]!;
 
   if (i.chargebacks === 0 && i.completedSessions >= 3) badges.push('no_disputes');
   if (i.accountAgeDays >= 90 && i.repeatRelationships >= 1) badges.push('regular_3mo');

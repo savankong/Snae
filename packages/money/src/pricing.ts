@@ -1,4 +1,4 @@
-import { assertNonNegative, type Minor } from './money';
+import { assertNonNegative, type Minor } from './money.ts';
 import { PRICE_BOUNDS } from '@snae/config';
 
 /**
