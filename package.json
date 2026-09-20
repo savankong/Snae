@@ -1,0 +1,23 @@
+{
+  "name": "snae",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Snae \u2014 real people, proven live. Verified-creator paid conversation marketplace.",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace @snae/web",
+    "build": "npm run build --workspace @snae/web",
+    "start": "npm run start --workspace @snae/web",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "node --test --experimental-strip-types \"packages/**/*.test.ts\"",
+    "lint": "next lint --dir apps/web",
+    "check:lockfile": "node scripts/check-lockfile.mjs",
+    "verify": "npm run check:lockfile && npm run typecheck && npm test && npm run build"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

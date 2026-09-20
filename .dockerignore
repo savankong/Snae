@@ -1,0 +1,11 @@
+node_modules
+.next
+.git
+.github
+design
+docs
+scripts
+*.md
+.env*
+*.tsbuildinfo
+.do

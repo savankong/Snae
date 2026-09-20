@@ -1,0 +1,75 @@
+# DigitalOcean App Platform spec.
+#
+# Deploy with:
+#   doctl apps create --spec .do/app.yaml
+# and thereafter:
+#   doctl apps update <app-id> --spec .do/app.yaml
+#
+# Builds from the repo's Dockerfile rather than App Platform's Node buildpack,
+# because the buildpack does not understand npm workspaces and would not
+# resolve the @snae/* packages.
+
+name: snae
+region: nyc
+
+services:
+  - name: web
+    dockerfile_path: Dockerfile
+    source_dir: /
+
+    github:
+      repo: savankong/Snae
+      branch: claude/snae-build-implementation-1qro3q
+      deploy_on_push: true
+
+    http_port: 3000
+    instance_count: 1
+    # Smallest instance that builds a Next app comfortably. Scale up before
+    # launch — voice sessions and presence webhooks are not load-tested yet.
+    instance_size_slug: apps-s-1vcpu-1gb
+
+    health_check:
+      # Unauthenticated probe — the root is behind the staging gate.
+      http_path: /healthz
+      initial_delay_seconds: 20
+      period_seconds: 30
+      timeout_seconds: 5
+      success_threshold: 1
+      failure_threshold: 3
+
+    envs:
+      - key: NODE_ENV
+        value: production
+      - key: NEXT_TELEMETRY_DISABLED
+        value: '1'
+      # Staging gate. Set both as SECRET-scoped values; when either is absent
+      # the app serves unauthenticated, so do not omit them on staging.
+      - key: STAGING_AUTH_USER
+        scope: RUN_TIME
+        type: SECRET
+        value: CHANGE_ME
+      - key: STAGING_AUTH_PASSWORD
+        scope: RUN_TIME
+        type: SECRET
+        value: CHANGE_ME
+      # Required once auth, payments and the presence provider are wired up.
+      # Set these as SECRET-scoped variables in the App Platform UI or via
+      # `doctl apps update`; they are deliberately not committed here.
+      # - key: DATABASE_URL
+      #   scope: RUN_TIME
+      #   type: SECRET
+      # - key: PROCESSOR_API_KEY
+      #   scope: RUN_TIME
+      #   type: SECRET
+      # - key: PRESENCE_PROVIDER_KEY
+      #   scope: RUN_TIME
+      #   type: SECRET
+
+# Snae needs PostgreSQL (§15). Uncomment once the schema has migrations — the
+# app currently renders from fixtures and does not connect to a database, so
+# provisioning one now would bill without being used.
+# databases:
+#   - name: snae-db
+#     engine: PG
+#     version: '16'
+#     production: false
