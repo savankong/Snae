@@ -26,6 +26,17 @@ export function middleware(request: NextRequest) {
     const response = NextResponse.next();
     // Nothing behind this gate should ever be indexed, whatever a page says.
     response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+    /**
+     * Gated responses must never reach a shared cache.
+     *
+     * Next marks statically prerendered pages `s-maxage=31536000`, and the CDN
+     * in front of App Platform honours it. Without this override the first
+     * authenticated request warms the edge cache and every later request is
+     * served that 200 straight from the CDN — the middleware is never consulted
+     * and the gate is bypassed entirely. Observed in the first staging deploy.
+     */
+    response.headers.set('Cache-Control', 'private, no-store, max-age=0, must-revalidate');
+    response.headers.delete('CDN-Cache-Control');
     return response;
   }
 
