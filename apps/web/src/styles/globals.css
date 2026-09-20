@@ -1,0 +1,147 @@
+@import "tailwindcss";
+
+/* ───────────────────────────────────────────────────────────────
+   Snae — "Neon After Hours"
+   Tokens carried from design/v2. The palette is dark-native: there
+   is no light mode, because every surface in this product is used
+   at night on a phone, and a light theme would blow out the neon
+   states that carry meaning (live / scheduled / offline).
+   ─────────────────────────────────────────────────────────────── */
+@theme {
+  --color-ground: #08070C;
+  --color-surface: #0F0D15;
+  --color-raised: #14111C;
+  --color-raised-2: #1A1626;
+  --color-hairline: #241F31;
+
+  /* Live + primary action. Pink means "she is on, now". */
+  --color-live: #FF3D81;
+  --color-live-soft: #FF7AA8;
+  --color-live-dim: #3D1024;
+
+  /* Verified + scheduled. Violet means "proven" or "later". */
+  --color-verified: #7C5CFF;
+  --color-verified-soft: #9E86FF;
+  --color-verified-dim: #221A3D;
+
+  --color-offline: #35313F;
+  --color-money: #3DD68C;
+  --color-money-dim: #0E2E1F;
+  --color-warn: #FFB020;
+  --color-danger: #FF4D4D;
+
+  --color-ink: #F2F0F7;
+  --color-ink-2: #A39FB5;
+  --color-ink-3: #7C7894;
+
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+
+  --radius-card: 20px;
+  --radius-pill: 999px;
+
+  /* Motion. One vocabulary, four durations, three curves.
+     Everything in the product animates on these or not at all. */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-in-out-soft: cubic-bezier(0.45, 0, 0.15, 1);
+  --dur-1: 120ms;
+  --dur-2: 220ms;
+  --dur-3: 380ms;
+  --dur-4: 620ms;
+}
+
+@layer base {
+  html { background: var(--color-ground); color-scheme: dark; }
+  body {
+    background: var(--color-ground);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3, .font-display { font-family: var(--font-display); letter-spacing: -0.02em; }
+
+  /* WCAG 2.2 AA is a launch target (A.7). Focus must be visible on
+     every interactive element, including inside dark neon surfaces. */
+  :focus-visible {
+    outline: 2px solid var(--color-verified-soft);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  ::selection { background: var(--color-live); color: #fff; }
+}
+
+/* ── Motion primitives ────────────────────────────────────────── */
+
+@keyframes snae-pulse-ring {
+  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-live) 55%, transparent); }
+  70%  { box-shadow: 0 0 0 12px color-mix(in srgb, var(--color-live) 0%, transparent); }
+  100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-live) 0%, transparent); }
+}
+@keyframes snae-breathe {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.06); opacity: 0.85; }
+}
+@keyframes snae-rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes snae-sweep {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(200%); }
+}
+@keyframes snae-meter {
+  from { stroke-dashoffset: var(--dash-from, 0); }
+  to   { stroke-dashoffset: var(--dash-to, 0); }
+}
+@keyframes snae-count-flip {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.animate-pulse-ring { animation: snae-pulse-ring 2.2s var(--ease-in-out-soft) infinite; }
+.animate-breathe    { animation: snae-breathe 3.2s var(--ease-in-out-soft) infinite; }
+.animate-rise       { animation: snae-rise var(--dur-3) var(--ease-out-expo) both; }
+.animate-count      { animation: snae-count-flip var(--dur-2) var(--ease-out-expo); }
+
+/* Staggered entrance. Children reveal in sequence without JS. */
+.stagger > * { animation: snae-rise var(--dur-3) var(--ease-out-expo) both; }
+.stagger > *:nth-child(1) { animation-delay: 0ms; }
+.stagger > *:nth-child(2) { animation-delay: 45ms; }
+.stagger > *:nth-child(3) { animation-delay: 90ms; }
+.stagger > *:nth-child(4) { animation-delay: 135ms; }
+.stagger > *:nth-child(5) { animation-delay: 180ms; }
+.stagger > *:nth-child(6) { animation-delay: 225ms; }
+.stagger > *:nth-child(7) { animation-delay: 270ms; }
+.stagger > *:nth-child(8) { animation-delay: 315ms; }
+.stagger > *:nth-child(n+9) { animation-delay: 360ms; }
+
+/* Shimmer for loading surfaces — masked, so it reads as light moving
+   across the card rather than the card changing colour. */
+.shimmer { position: relative; overflow: hidden; }
+.shimmer::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--color-ink) 7%, transparent), transparent);
+  animation: snae-sweep 1.8s var(--ease-in-out-soft) infinite;
+}
+
+/* Press feedback. Applied to every tappable surface for a physical feel. */
+.press { transition: transform var(--dur-1) var(--ease-out-expo), filter var(--dur-1) linear; }
+.press:active { transform: scale(0.972); }
+@media (hover: hover) { .press:hover { filter: brightness(1.08); } }
+
+/* Reduced motion is honoured globally — the product still works, it
+   just stops moving. Opacity transitions are kept so state changes
+   remain perceivable. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .shimmer::after { display: none; }
+  .press:active { transform: none; }
+}
