@@ -29,7 +29,8 @@ services:
     instance_size_slug: apps-s-1vcpu-1gb
 
     health_check:
-      http_path: /
+      # Unauthenticated probe — the root is behind the staging gate.
+      http_path: /healthz
       initial_delay_seconds: 20
       period_seconds: 30
       timeout_seconds: 5
@@ -41,6 +42,16 @@ services:
         value: production
       - key: NEXT_TELEMETRY_DISABLED
         value: '1'
+      # Staging gate. Set both as SECRET-scoped values; when either is absent
+      # the app serves unauthenticated, so do not omit them on staging.
+      - key: STAGING_AUTH_USER
+        scope: RUN_TIME
+        type: SECRET
+        value: CHANGE_ME
+      - key: STAGING_AUTH_PASSWORD
+        scope: RUN_TIME
+        type: SECRET
+        value: CHANGE_ME
       # Required once auth, payments and the presence provider are wired up.
       # Set these as SECRET-scoped variables in the App Platform UI or via
       # `doctl apps update`; they are deliberately not committed here.

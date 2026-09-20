@@ -78,5 +78,25 @@ apply before it faces the public, not after:
 - Age assurance on the buyer side, which is not built.
 
 A private staging deployment for review is fine and is what this spec is scoped
-for. Put it behind App Platform's trusted-sources or basic auth if the URL will
-be shared around, since the placeholder creator content reads as real.
+for.
+
+## The staging gate
+
+Staging is protected by basic auth in `apps/web/src/middleware.ts`. It turns on
+only when both `STAGING_AUTH_USER` and `STAGING_AUTH_PASSWORD` are set, so local
+development and a future production deploy with its own access controls are
+unaffected.
+
+Set them as SECRET-scoped values before the first deploy:
+
+```bash
+doctl apps update <app-id> --spec .do/app.yaml   # after replacing CHANGE_ME
+```
+
+Two details worth knowing:
+
+- `/healthz` is deliberately outside the gate. App Platform's health check would
+  otherwise get a 401 and mark a healthy container as down.
+- The gate fails *open* when unconfigured rather than closed. A misconfigured
+  production deploy should be reachable and fixable, not bricked. That means
+  omitting the variables on staging leaves it public — do not omit them.
