@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Available — Phone (tray and swipe deck)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Space+Grotesk:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;font-family:"Space Grotesk",system-ui,sans-serif;background:#08070C}
+a{color:#FF3D81;text-decoration:none}a:hover{color:#FF74A6}
+</style>
+</helmet>
+<div style="width: 860px; height: 1300px; box-sizing: border-box; background: #08070C; padding: 40px 0; display: flex; gap: 80px; overflow: hidden;">
+
+  <div style="width: 390px; display: flex; flex-direction: column; gap: 12px;">
+    <div style="font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #6F6B85;">Phone — home</div>
+    <div style="width: 390px; height: 1180px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: #08070C; color: #F2F0F7; overflow: hidden; display: flex; flex-direction: column;">
+
+      <div style="height: 26px; flex-shrink: 0; background: #0D0B13; display: flex; align-items: center; justify-content: center; gap: 7px; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #A39FB5;">
+        <span style="background: #FF3D81; color: #0A0410; border-radius: 3px; padding: 0 5px; font-size: 9px; font-weight: 700;">18+</span> Verified adults only
+      </div>
+
+      <div style="height: 56px; flex-shrink: 0; padding: 0 18px; display: flex; align-items: center;">
+        <span style="font-family: 'Bricolage Grotesque',sans-serif; font-size: 22px; font-weight: 800; letter-spacing: -0.03em; flex-grow: 1;">AVAILABLE<span style="color: #FF3D81;">.</span></span>
+        <button type="button" aria-label="Alerts" style="font-family: inherit; width: 38px; height: 38px; border-radius: 10px; background: #14111C; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; position: relative;">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#F2F0F7" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 8-3 8h18s-3-1-3-8"></path><path d="M13.7 20a2 2 0 0 1-3.4 0"></path></svg>
+          <span style="position: absolute; top: 8px; right: 9px; width: 7px; height: 7px; border-radius: 50%; background: #FF3D81; display: block;"></span>
+        </button>
+      </div>
+
+      <div style="flex-shrink: 0; padding: 6px 0 18px 18px;">
+        <div style="display: flex; gap: 14px; overflow: hidden;">
+          <sc-for list="{{tray}}" as="t" hint-placeholder-count="6">
+            <a href="V2-Profile.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 7px; width: 62px; flex-shrink: 0; color: #F2F0F7;">
+              <span style="width: 62px; height: 62px; border-radius: 50%; padding: 3px; box-sizing: border-box; border: 2px solid {{t.ring}}; display: flex; align-items: center; justify-content: center;">
+                <img src="{{t.img}}" alt="" style="width: 100%%; height: 100%%; border-radius: 50%%; object-fit: cover; display: block;">
+              </span>
+              <span style="font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 62px;">{{t.name}}</span>
+            </a>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="flex-shrink: 0; margin: 0 18px 18px; padding: 16px 18px; border-radius: 14px; background: #0F0D15; display: flex; align-items: center; gap: 14px;">
+        <div style="flex-grow: 1;">
+          <div style="font-family: 'Bricolage Grotesque',sans-serif; font-size: 17px; font-weight: 700; letter-spacing: -0.02em;">Two of fourteen on now</div>
+          <div style="font-size: 12px; color: #7C7894; margin-top: 4px;">The rest answer when they are back</div>
+        </div>
+        <button type="button" style="font-family: inherit; flex-shrink: 0; background: #FF3D81; color: #0A0410; font-size: 13px; font-weight: 700; padding: 11px 15px; border: none; border-radius: 9px; cursor: pointer;">Alerts</button>
+      </div>
+
+      <div style="padding: 0 18px; display: flex; flex-direction: column; gap: 14px; flex-grow: 1; overflow: hidden;">
+        <sc-for list="{{feed}}" as="f" hint-placeholder-count="3">
+          <a href="V2-Profile.dc.html" style="border-radius: 16px; background: #0F0D15; overflow: hidden; flex-shrink: 0; color: #F2F0F7; display: block;">
+            <div style="height: 200px; position: relative; overflow: hidden; background: #14111C;">
+              <img src="{{f.img}}" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+              <span style="position: absolute; top: 12px; left: 12px; display: flex; align-items: center; gap: 6px; background: {{f.chipBg}}; color: {{f.chipFg}}; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; padding: 5px 10px; border-radius: 5px;">
+                <span style="width: 4px; height: 4px; border-radius: 50%; background: {{f.chipFg}}; display: block;"></span>{{f.chip}}
+              </span>
+            </div>
+            <div style="padding: 15px 16px 17px;">
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="font-family: 'Bricolage Grotesque',sans-serif; font-size: 19px; font-weight: 700; letter-spacing: -0.02em;">{{f.name}}</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9E86FF" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="8.5 12 11 14.5 15.5 9.5"></polyline></svg>
+                <span style="flex-grow: 1;"></span>
+                <span style="font-family: 'Bricolage Grotesque',sans-serif; font-size: 17px; font-weight: 700; color: #FF3D81;">{{f.price}}</span>
+              </div>
+              <div style="font-size: 13px; color: #7C7894; margin-top: 6px; line-height: 1.5;">{{f.line}}</div>
+              <div style="margin-top: 13px; background: {{f.ctaBg}}; color: {{f.ctaFg}}; font-size: 14px; font-weight: 700; padding: 12px; border-radius: 9px; text-align: center;">{{f.cta}}</div>
+            </div>
+          </a>
+        </sc-for>
+      </div>
+
+      <div style="height: 68px; flex-shrink: 0; border-top: 1px solid rgba(255,255,255,0.07); display: flex; align-items: center; padding: 0 10px;">
+        <a href="V2-Mobile.dc.html" style="flex-grow: 1; display: flex; flex-direction: column; align-items: center; gap: 5px; color: #FF3D81; font-size: 11px; font-weight: 600;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FF3D81" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.5 12 4l8 7.5"></path><path d="M6.5 10V20h11V10"></path></svg>
+          Home
+        </a>
+        <a href="V2-Mobile.dc.html" style="flex-grow: 1; display: flex; flex-direction: column; align-items: center; gap: 5px; color: #7C7894; font-size: 11px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7C7894" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="3"></rect><path d="M9 12h6"></path></svg>
+          Discover
+        </a>
+        <a href="V2-Mobile.dc.html" style="flex-grow: 1; display: flex; flex-direction: column; align-items: center; gap: 5px; color: #7C7894; font-size: 11px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7C7894" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9.9 9.9 0 0 1-2.8-.4L3 21l1.5-5.2A8.4 8.4 0 0 1 3 11.5 8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z"></path></svg>
+          Chats
+        </a>
+        <a href="V2-Mobile.dc.html" style="flex-grow: 1; display: flex; flex-direction: column; align-items: center; gap: 5px; color: #7C7894; font-size: 11px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7C7894" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M5 21a7 7 0 0 1 14 0"></path></svg>
+          You
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div style="width: 390px; display: flex; flex-direction: column; gap: 12px;">
+    <div style="font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #6F6B85;">Phone — swipe deck</div>
+    <div style="width: 390px; height: 1180px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); overflow: hidden; position: relative; background: #0A0710; color: #F2F0F7;">
+
+      <img src="/_blob/fe6d1a91cf8bf9f7eb8bfe4a90b8e356" alt="Nadia" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;">
+      <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(8,7,12,0.66) 0%, rgba(8,7,12,0.12) 16%, rgba(8,7,12,0) 32%, rgba(8,7,12,0.5) 58%, rgba(8,7,12,0.93) 80%, #08070C 100%);"></div>
+
+      <div style="position: absolute; top: 16px; left: 0; right: 0; display: flex; align-items: center; justify-content: center; gap: 22px;">
+        <span style="font-size: 15px; color: rgba(242,240,247,0.55);">On now</span>
+        <span style="font-size: 15px; font-weight: 700; padding-bottom: 5px; border-bottom: 2px solid #FF3D81;">Everyone</span>
+        <span style="font-size: 15px; color: rgba(242,240,247,0.55);">Saved</span>
+      </div>
+
+      <div style="position: absolute; top: 74px; right: 16px; display: flex; flex-direction: column; align-items: center; gap: 5px;">
+        <span style="font-size: 11px; color: rgba(242,240,247,0.5);">3 / 14</span>
+      </div>
+
+      <div style="position: absolute; right: 14px; top: 430px; display: flex; flex-direction: column; gap: 24px; align-items: center;">
+        <button type="button" aria-label="Save Nadia" style="font-family: inherit; background: none; border: none; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 0;">
+          <span style="width: 50px; height: 50px; border-radius: 50%; background: rgba(8,7,12,0.42); display: flex; align-items: center; justify-content: center;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="#FF3D81" stroke="none"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1L12 21l7.7-7.6 1.1-1a5.5 5.5 0 0 0 0-7.8z"></path></svg>
+          </span>
+          <span style="font-size: 11px; font-weight: 600; color: #F2F0F7;">Saved</span>
+        </button>
+        <button type="button" aria-label="Alert me when Nadia is on" style="font-family: inherit; background: none; border: none; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 0;">
+          <span style="width: 50px; height: 50px; border-radius: 50%; background: rgba(8,7,12,0.42); display: flex; align-items: center; justify-content: center;">
+            <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="#F2F0F7" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 8-3 8h18s-3-1-3-8"></path><path d="M13.7 20a2 2 0 0 1-3.4 0"></path></svg>
+          </span>
+          <span style="font-size: 11px; color: rgba(242,240,247,0.85);">Alert</span>
+        </button>
+        <button type="button" aria-label="Share Nadia" style="font-family: inherit; background: none; border: none; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 0;">
+          <span style="width: 50px; height: 50px; border-radius: 50%; background: rgba(8,7,12,0.42); display: flex; align-items: center; justify-content: center;">
+            <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="#F2F0F7" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"></line><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"></line></svg>
+          </span>
+          <span style="font-size: 11px; color: rgba(242,240,247,0.85);">Share</span>
+        </button>
+        <button type="button" aria-label="Report or block" style="font-family: inherit; background: none; border: none; cursor: pointer; padding: 0;">
+          <span style="width: 50px; height: 50px; border-radius: 50%; background: rgba(8,7,12,0.42); display: flex; align-items: center; justify-content: center;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F2F0F7" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="5" r="1.3"></circle><circle cx="12" cy="12" r="1.3"></circle><circle cx="12" cy="19" r="1.3"></circle></svg>
+          </span>
+        </button>
+      </div>
+
+      <div style="position: absolute; bottom: 68px; left: 0; right: 0; padding: 0 18px 20px;">
+        <span style="display: inline-flex; align-items: center; gap: 7px; background: #FF3D81; color: #0A0410; font-size: 11px; font-weight: 700; letter-spacing: 0.07em; padding: 6px 11px; border-radius: 6px; margin-bottom: 14px;">
+          <span style="width: 5px; height: 5px; border-radius: 50%; background: #0A0410; display: block;"></span>ON NOW
+        </span>
+        <div style="display: flex; align-items: center; gap: 9px; margin-bottom: 10px;">
+          <span style="font-family: 'Bricolage Grotesque',sans-serif; font-size: 40px; font-weight: 800; letter-spacing: -0.035em; line-height: 1;">Nadia</span>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C4B3FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="8.5 12 11 14.5 15.5 9.5"></polyline></svg>
+        </div>
+        <p style="margin: 0 0 6px; font-size: 15px; line-height: 1.55; color: rgba(242,240,247,0.88); max-width: 270px;">Real conversation and blunt advice. I will not pretend to agree with you.</p>
+        <div style="font-size: 13px; color: rgba(242,240,247,0.6); margin-bottom: 18px;">Replies in about a minute · 4.8 from 96</div>
+        <a href="V2-Profile.dc.html" style="display: flex; align-items: center; justify-content: center; gap: 10px; background: #FF3D81; color: #0A0410; font-size: 17px; font-weight: 700; padding: 18px; border-radius: 13px;">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#0A0410" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9.9 9.9 0 0 1-2.8-.4L3 21l1.5-5.2A8.4 8.4 0 0 1 3 11.5 8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z"></path></svg>
+          Talk now — $3.00 a message
+        </a>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 16px; font-size: 12px; color: rgba(242,240,247,0.45);">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(242,240,247,0.45)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          Swipe for the next one
+        </div>
+      </div>
+
+      <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 68px; background: rgba(8,7,12,0.72); display: flex; align-items: center; padding: 0 10px;">
+        <a href="V2-Mobile.dc.html" style="flex-grow: 1; display: flex; flex-direction: column; align-items: center; gap: 5px; color: rgba(242,240,247,0.5); font-size: 11px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(242,240,247,0.5)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.5 12 4l8 7.5"></path><path d="M6.5 10V20h11V10"></path></svg>
+          Home
+        </a>
+        <a href="V2-Mobile.dc.html" style="flex-grow: 1; display: flex; flex-direction: column; align-items: center; gap: 5px; color: #FF3D81; font-size: 11px; font-weight: 600;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FF3D81" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="3"></rect><path d="M9 12h6"></path></svg>
+          Discover
+        </a>
+        <a href="V2-Mobile.dc.html" style="flex-grow: 1; display: flex; flex-direction: column; align-items: center; gap: 5px; color: rgba(242,240,247,0.5); font-size: 11px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(242,240,247,0.5)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9.9 9.9 0 0 1-2.8-.4L3 21l1.5-5.2A8.4 8.4 0 0 1 3 11.5 8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z"></path></svg>
+          Chats
+        </a>
+        <a href="V2-Mobile.dc.html" style="flex-grow: 1; display: flex; flex-direction: column; align-items: center; gap: 5px; color: rgba(242,240,247,0.5); font-size: 11px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(242,240,247,0.5)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M5 21a7 7 0 0 1 14 0"></path></svg>
+          You
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":860,"height":1300}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const I = {'sofia': '/_blob/c3b0689ce87a88b5b4e9f2cb00566a6e', 'nadia': '/_blob/fe6d1a91cf8bf9f7eb8bfe4a90b8e356', 'elise': '/_blob/b1468257210190824811a2164769b179', 'margot': '/_blob/dfebae2faf1758e31cc81eb00e3144c9', 'priya': '/_blob/9314739eb7a673db41f55b940f6091f1', 'yuki': '/_blob/291a775acda9a1e9cfbe353d5803d09b'};
+    return {
+      tray: [
+        { name: 'Sofia', img: I.sofia, ring: '#FF3D81' },
+        { name: 'Nadia', img: I.nadia, ring: '#FF3D81' },
+        { name: 'Elise', img: I.elise, ring: '#7C5CFF' },
+        { name: 'Margot', img: I.margot, ring: '#7C5CFF' },
+        { name: 'Priya', img: I.priya, ring: '#35313F' },
+        { name: 'Yuki', img: I.yuki, ring: '#35313F' }
+      ],
+      feed: [
+        { name: 'Sofia', img: I.sofia, chip: 'ON NOW', chipBg: '#FF3D81', chipFg: '#0A0410', line: 'Late nights, slow flirty conversation.', price: '$2.50', cta: 'Talk now', ctaBg: '#FF3D81', ctaFg: '#0A0410' },
+        { name: 'Priya', img: I.priya, chip: 'BACK AT 9 PM', chipBg: 'rgba(124,92,255,0.34)', chipFg: '#C4B3FF', line: 'Playful, competitive, terrible reality TV.', price: '$3.00', cta: 'Remind me at 9 PM', ctaBg: '#1A1626', ctaFg: '#F2F0F7' },
+        { name: 'Elise', img: I.elise, chip: 'USUALLY THURSDAYS', chipBg: 'rgba(8,7,12,0.72)', chipFg: '#D6D3E0', line: 'Books, long quiet talk, never rushes.', price: '$1.80', cta: 'Leave her a message', ctaBg: '#1A1626', ctaFg: '#F2F0F7' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

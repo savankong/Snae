@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Available — Homepage (quiet launch)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Space+Grotesk:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;font-family:"Space Grotesk",system-ui,sans-serif;background:#08070C}
+a{color:#FF3D81;text-decoration:none}a:hover{color:#FF74A6}
+</style>
+</helmet>
+<div style="width: 1440px; height: 1860px; box-sizing: border-box; background: #08070C; color: #F2F0F7; display: flex; flex-direction: column; overflow: hidden;">
+
+  <div style="height: 34px; flex-shrink: 0; background: #0D0B13; display: flex; align-items: center; justify-content: center; gap: 12px; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #A39FB5;">
+    <span style="background: #FF3D81; color: #0A0410; border-radius: 3px; padding: 2px 6px; font-size: 10px; font-weight: 700;">18+</span>
+    <span>Adults only · every creator is ID and age verified</span>
+  </div>
+
+  <header style="height: 78px; flex-shrink: 0; padding: 0 64px; display: flex; align-items: center; gap: 36px;">
+    <a href="V2-Home.dc.html" style="font-family: 'Bricolage Grotesque',sans-serif; font-size: 26px; font-weight: 800; letter-spacing: -0.03em; color: #F2F0F7;">AVAILABLE<span style="color: #FF3D81;">.</span></a>
+    <nav style="display: flex; align-items: center; gap: 28px; flex-grow: 1; font-size: 15px;">
+      <a href="V2-Home.dc.html" style="color: #F2F0F7; font-weight: 500;">Everyone</a>
+      <a href="V2-States.dc.html" style="color: #A39FB5;">Tonight</a>
+      <a href="V2-Home.dc.html" style="color: #A39FB5;">Saved</a>
+    </nav>
+    <a href="V2-Home.dc.html" style="font-size: 15px; color: #A39FB5;">Log in</a>
+    <a href="V2-Home.dc.html" style="font-size: 14px; font-weight: 600; color: #F2F0F7; border: 1px solid rgba(255,255,255,0.16); border-radius: 9px; padding: 11px 18px;">Become a creator</a>
+  </header>
+
+  <div style="flex-shrink: 0; padding: 26px 64px 30px;">
+    <div style="display: flex; gap: 26px;">
+      <sc-for list="{{tray}}" as="t" hint-placeholder-count="9">
+        <a href="V2-Profile.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 10px; width: 84px; color: #F2F0F7;">
+          <span style="width: 84px; height: 84px; border-radius: 50%; padding: 3px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid {{t.ring}};">
+            <img src="{{t.img}}" alt="" style="width: 100%%; height: 100%%; border-radius: 50%%; object-fit: cover; display: block;">
+          </span>
+          <span style="font-size: 13px; font-weight: 500;">{{t.name}}</span>
+          <span style="font-size: 11px; color: {{t.stateColor}};">{{t.state}}</span>
+        </a>
+      </sc-for>
+      <div style="flex-grow: 1;"></div>
+      <div style="display: flex; flex-direction: column; justify-content: center; gap: 8px; align-items: flex-end;">
+        <div style="display: flex; align-items: center; gap: 16px; font-size: 12px; color: #7C7894;">
+          <span style="display: flex; align-items: center; gap: 7px;"><span style="width: 9px; height: 9px; border-radius: 50%; border: 2px solid #FF3D81; display: block;"></span>On now</span>
+          <span style="display: flex; align-items: center; gap: 7px;"><span style="width: 9px; height: 9px; border-radius: 50%; border: 2px solid #7C5CFF; display: block;"></span>Posted today</span>
+          <span style="display: flex; align-items: center; gap: 7px;"><span style="width: 9px; height: 9px; border-radius: 50%; border: 2px solid #35313F; display: block;"></span>Offline</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="flex-shrink: 0; margin: 0 64px; padding: 26px 32px; border-radius: 16px; background: #0F0D15; display: flex; align-items: center; gap: 28px;">
+    <div style="flex-grow: 1;">
+      <h1 style="margin: 0 0 8px; font-family: 'Bricolage Grotesque',sans-serif; font-size: 34px; font-weight: 700; letter-spacing: -0.025em;">Two of fourteen are on right now.</h1>
+      <p style="margin: 0; font-size: 15px; color: #A39FB5;">Everyone else answers when they are back. Leave a message and it is waiting for her — or we will tell you the moment she is on.</p>
+    </div>
+    <button type="button" style="font-family: inherit; flex-shrink: 0; display: flex; align-items: center; gap: 10px; background: #FF3D81; color: #0A0410; font-size: 15px; font-weight: 700; padding: 15px 24px; border: none; border-radius: 10px; cursor: pointer;">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0A0410" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 8-3 8h18s-3-1-3-8"></path><path d="M13.7 20a2 2 0 0 1-3.4 0"></path></svg>
+      Turn on alerts
+    </button>
+  </div>
+
+  <main style="flex-shrink: 0; padding: 44px 64px 0;">
+    <div style="display: flex; align-items: center; gap: 24px; margin-bottom: 24px;">
+      <a href="V2-Home.dc.html" style="font-family: 'Bricolage Grotesque',sans-serif; font-size: 19px; font-weight: 700; color: #F2F0F7; padding-bottom: 10px; border-bottom: 2px solid #FF3D81;">Everyone</a>
+      <a href="V2-Home.dc.html" style="font-size: 19px; color: #7C7894; padding-bottom: 10px;">On now</a>
+      <a href="V2-Home.dc.html" style="font-size: 19px; color: #7C7894; padding-bottom: 10px;">Tonight</a>
+      <a href="V2-Home.dc.html" style="font-size: 19px; color: #7C7894; padding-bottom: 10px;">New</a>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px;">
+      <sc-for list="{{people}}" as="p" hint-placeholder-count="6">
+        <article style="border-radius: 18px; background: #0F0D15; overflow: hidden; display: flex; flex-direction: column;">
+          <div style="height: 340px; position: relative; overflow: hidden; background: #14111C;">
+            <img src="{{p.img}}" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            <span style="position: absolute; top: 14px; left: 14px; display: flex; align-items: center; gap: 7px; background: {{p.chipBg}}; color: {{p.chipFg}}; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; padding: 6px 11px; border-radius: 6px;">
+              <span style="width: 5px; height: 5px; border-radius: 50%; background: {{p.chipFg}}; display: block;"></span>{{p.chip}}
+            </span>
+            <button type="button" aria-label="Save this creator" style="position: absolute; top: 12px; right: 12px; width: 34px; height: 34px; border-radius: 9px; background: rgba(8,7,12,0.6); border: none; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#F2F0F7" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1L12 21l7.7-7.6 1.1-1a5.5 5.5 0 0 0 0-7.8z"></path></svg>
+            </button>
+          </div>
+          <div style="padding: 20px 22px 22px; display: flex; flex-direction: column; gap: 12px; flex-grow: 1;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <a href="V2-Profile.dc.html" style="font-family: 'Bricolage Grotesque',sans-serif; font-size: 22px; font-weight: 700; color: #F2F0F7; letter-spacing: -0.02em;">{{p.name}}</a>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9E86FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="8.5 12 11 14.5 15.5 9.5"></polyline></svg>
+              <span style="flex-grow: 1;"></span>
+              <span style="font-family: 'Bricolage Grotesque',sans-serif; font-size: 19px; font-weight: 700; color: #FF3D81;">{{p.price}}</span>
+            </div>
+            <p style="margin: 0; font-size: 14px; line-height: 1.55; color: #A39FB5;">{{p.line}}</p>
+            <div style="margin-top: auto; padding-top: 4px;">
+              <sc-if value="{{p.isOn}}" hint-placeholder-val="{{true}}">
+                <a href="V2-Profile.dc.html" style="display: block; background: #FF3D81; color: #0A0410; font-size: 15px; font-weight: 700; padding: 14px; border-radius: 10px; text-align: center;">Talk now</a>
+              </sc-if>
+              <sc-if value="{{p.isSoon}}" hint-placeholder-val="{{true}}">
+                <a href="V2-Profile.dc.html" style="display: flex; align-items: center; justify-content: center; gap: 9px; background: #1A1626; color: #F2F0F7; font-size: 15px; font-weight: 600; padding: 14px; border-radius: 10px;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9E86FF" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 8-3 8h18s-3-1-3-8"></path><path d="M13.7 20a2 2 0 0 1-3.4 0"></path></svg>
+                  Remind me at {{p.at}}
+                </a>
+              </sc-if>
+              <sc-if value="{{p.isOff}}" hint-placeholder-val="{{true}}">
+                <a href="V2-Profile.dc.html" style="display: flex; align-items: center; justify-content: center; gap: 9px; background: #1A1626; color: #F2F0F7; font-size: 15px; font-weight: 600; padding: 14px; border-radius: 10px;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9E86FF" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9.9 9.9 0 0 1-2.8-.4L3 21l1.5-5.2A8.4 8.4 0 0 1 3 11.5 8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z"></path></svg>
+                  Leave her a message
+                </a>
+              </sc-if>
+            </div>
+          </div>
+        </article>
+      </sc-for>
+    </div>
+  </main>
+
+  <section style="flex-shrink: 0; margin: 48px 64px 0; padding: 40px 44px; border-radius: 18px; background: #0F0D15; display: flex; gap: 48px; align-items: center;">
+    <div style="width: 330px;">
+      <h2 style="margin: 0 0 12px; font-family: 'Bricolage Grotesque',sans-serif; font-size: 30px; font-weight: 700; letter-spacing: -0.025em; line-height: 1.1;">She does not have to be online.</h2>
+      <p style="margin: 0; font-size: 15px; line-height: 1.65; color: #A39FB5;">Most of the women here do this around a job. Waiting is part of it — so we made waiting worth something.</p>
+    </div>
+    <div style="flex-grow: 1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px;">
+      <div>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FF3D81" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 14px;"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9.9 9.9 0 0 1-2.8-.4L3 21l1.5-5.2A8.4 8.4 0 0 1 3 11.5 8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z"></path></svg>
+        <div style="font-size: 16px; font-weight: 700; margin-bottom: 8px;">Leave it waiting</div>
+        <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #7C7894;">Pay for a message now and it is the first thing she sees. She replies within a day or you get your money back.</p>
+      </div>
+      <div>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9E86FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 14px;"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 8-3 8h18s-3-1-3-8"></path><path d="M13.7 20a2 2 0 0 1-3.4 0"></path></svg>
+        <div style="font-size: 16px; font-weight: 700; margin-bottom: 8px;">Told twice</div>
+        <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #7C7894;">An hour before she is due on, and again the second she actually is. One tap takes you straight into the conversation.</p>
+      </div>
+      <div>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9E86FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 14px;"><rect x="3" y="5" width="18" height="16" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg>
+        <div style="font-size: 16px; font-weight: 700; margin-bottom: 8px;">Her usual nights</div>
+        <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #7C7894;">Every profile shows the evenings she is normally on, so you can come back when it suits you both.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer style="margin-top: auto; flex-shrink: 0; padding: 36px 64px 34px; border-top: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; gap: 22px;">
+    <span style="font-family: 'Bricolage Grotesque',sans-serif; font-size: 20px; font-weight: 800; letter-spacing: -0.03em;">AVAILABLE<span style="color: #FF3D81;">.</span></span>
+    <span style="background: #FF3D81; color: #0A0410; border-radius: 4px; padding: 3px 8px; font-size: 11px; font-weight: 700;">18+</span>
+    <span style="font-size: 13px; color: #6F6B85;">[LEGAL ENTITY NAME] · charges show as [DESCRIPTOR]</span>
+    <span style="flex-grow: 1;"></span>
+    <a href="V2-Home.dc.html" style="font-size: 13px; color: #A39FB5;">Terms</a>
+    <a href="V2-Home.dc.html" style="font-size: 13px; color: #A39FB5;">Privacy</a>
+    <a href="V2-Home.dc.html" style="font-size: 13px; color: #A39FB5;">Billing and refunds</a>
+    <a href="V2-Home.dc.html" style="font-size: 13px; color: #A39FB5;">Content removal</a>
+    <a href="V2-Home.dc.html" style="font-size: 13px; color: #A39FB5;">Report</a>
+    <a href="V2-Home.dc.html" style="font-size: 13px; color: #A39FB5;">2257</a>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1860}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const ON = '#FF3D81', POST = '#7C5CFF', OFF = '#35313F';
+    const I = {'sofia': '/_blob/c3b0689ce87a88b5b4e9f2cb00566a6e', 'nadia': '/_blob/fe6d1a91cf8bf9f7eb8bfe4a90b8e356', 'elise': '/_blob/b1468257210190824811a2164769b179', 'margot': '/_blob/dfebae2faf1758e31cc81eb00e3144c9', 'priya': '/_blob/9314739eb7a673db41f55b940f6091f1', 'yuki': '/_blob/291a775acda9a1e9cfbe353d5803d09b', 'camille': '/_blob/f2df592bd5d4570b21dd76488f5ce2b5', 'rosa': '/_blob/8e024e71c5bbfa23a7d5db2e9b7572e9', 'ines': '/_blob/68d409aaecab3d7cd4a1ad684d5c11b3'};
+    return {
+      tray: [
+        { name: 'Sofia', img: I.sofia, ring: ON, state: 'On now', stateColor: '#FF3D81' },
+        { name: 'Nadia', img: I.nadia, ring: ON, state: 'On now', stateColor: '#FF3D81' },
+        { name: 'Elise', img: I.elise, ring: POST, state: 'Posted today', stateColor: '#9E86FF' },
+        { name: 'Margot', img: I.margot, ring: POST, state: 'Posted today', stateColor: '#9E86FF' },
+        { name: 'Priya', img: I.priya, ring: OFF, state: 'Back 9 PM', stateColor: '#7C7894' },
+        { name: 'Yuki', img: I.yuki, ring: OFF, state: 'Back 11 PM', stateColor: '#7C7894' },
+        { name: 'Camille', img: I.camille, ring: OFF, state: 'Thu', stateColor: '#7C7894' },
+        { name: 'Rosa', img: I.rosa, ring: OFF, state: 'Fri', stateColor: '#7C7894' },
+        { name: 'Ines', img: I.ines, ring: OFF, state: 'Sat', stateColor: '#7C7894' }
+      ],
+      people: [
+        { name: 'Sofia', img: I.sofia, chip: 'ON NOW', chipBg: '#FF3D81', chipFg: '#0A0410', line: 'Late nights, slow flirty conversation. Replies in about forty seconds.', price: '$2.50', isOn: true, isSoon: false, isOff: false, at: '' },
+        { name: 'Nadia', img: I.nadia, chip: 'ON NOW', chipBg: '#FF3D81', chipFg: '#0A0410', line: 'Real conversation and blunt advice. Will not pretend to agree with you.', price: '$3.00', isOn: true, isSoon: false, isOff: false, at: '' },
+        { name: 'Priya', img: I.priya, chip: 'BACK AT 9 PM', chipBg: 'rgba(124,92,255,0.22)', chipFg: '#B9A5FF', line: 'Playful, competitive, talks about running and terrible reality TV.', price: '$3.00', isOn: false, isSoon: true, isOff: false, at: '9 PM' },
+        { name: 'Yuki', img: I.yuki, chip: 'BACK AT 11 PM', chipBg: 'rgba(124,92,255,0.22)', chipFg: '#B9A5FF', line: 'Night owl. Anime, bad puns, and company at three in the morning.', price: '$2.00', isOn: false, isSoon: true, isOff: false, at: '11 PM' },
+        { name: 'Elise', img: I.elise, chip: 'USUALLY THURSDAYS', chipBg: 'rgba(255,255,255,0.08)', chipFg: '#A39FB5', line: 'Books, long quiet talk, and the kind of company that does not rush.', price: '$1.80', isOn: false, isSoon: false, isOff: true, at: '' },
+        { name: 'Margot', img: I.margot, chip: 'USUALLY WEEKENDS', chipBg: 'rgba(255,255,255,0.08)', chipFg: '#A39FB5', line: 'Warm, a good listener, and far too opinionated about music.', price: '$2.20', isOn: false, isSoon: false, isOff: true, at: '' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+{
+  "v": 3,
+  "createdOnFiles": {
+    "v": 1,
+    "at": "2026-09-20T00:00:00Z"
+  },
+  "title": "Available \u2014 V2 (Neon After Hours)",
+  "launch": {
+    "view": "canvas"
+  },
+  "pages": [],
+  "boards": {
+    "V2-Home.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 1860,
+      "title": "Homepage \u2014 quiet launch",
+      "is_interactive": true
+    },
+    "V2-Profile.dc.html": {
+      "x": 1520,
+      "y": 0,
+      "w": 1440,
+      "h": 1940,
+      "title": "Creator profile \u2014 offline first",
+      "is_interactive": true
+    },
+    "V2-Mobile.dc.html": {
+      "x": 3040,
+      "y": 0,
+      "w": 860,
+      "h": 1300,
+      "title": "Phone \u2014 tray and swipe deck",
+      "is_interactive": true
+    },
+    "V2-States.dc.html": {
+      "x": 3980,
+      "y": 0,
+      "w": 860,
+      "h": 1300,
+      "title": "Phone \u2014 empty state and alerts",
+      "is_interactive": true
+    }
+  },
+  "order": [
+    "V2-Home.dc.html",
+    "V2-Profile.dc.html",
+    "V2-Mobile.dc.html",
+    "V2-States.dc.html"
+  ],
+  "notes": {
+    "t1": {
+      "x": 0,
+      "y": -300,
+      "text": "Available \u2014 V2, built for thin part-time supply",
+      "kind": "title1",
+      "maxW": 4840
+    },
+    "n1": {
+      "x": 4920,
+      "y": 0,
+      "w": 360,
+      "color": "pink",
+      "text": "Availability is a state on a card, not the premise of the page. Ring tray instead of a live counter, six roomy cards instead of twelve dense ones, no filter rail, no search. The load-bearing addition is the paid async message, so the marketplace still transacts when nobody is online."
+    }
+  },
+  "designSystems": []
+}
